@@ -116,12 +116,7 @@ class StraightRoad extends RoadComponent
     if(direction == KDir.UP)
       return roadLength;
     else
-    {
-      if(endWidth > startWidth)
-        return endWidth - startWidth;
-    }
-    
-    return 0;
+      return 0;
   }
   
   public float getTrackLenght()
