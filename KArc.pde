@@ -55,18 +55,21 @@ class KArc extends RoadComponent
   
   public boolean inHorizonRange(int offset)
   {
+    
+    println("Testing ARC (Start X: " + roadConnectionStart.x + ", radius: " + radius + ", Offset*3: " + offset*3 + ", width: " + width + ")");
+    println("Direction: " + type);
     switch(type)
     {
       case R:
       {
-        if((roadConnectionStart.x + radius) < (width + offset*2))
+        if((roadConnectionStart.x + radius) < (width - offset*3))
           return true;
         else
           return false;
       }
       case L:
       {
-        if((roadConnectionStart.x - radius) > (width + offset*2))
+        if((roadConnectionStart.x - radius) > (width - offset*3))
           return true;
         else 
           return false;
@@ -170,6 +173,7 @@ class KArc extends RoadComponent
   
   public boolean belowScreen(int yOffset)
   {
+    println("Checking whether Arc is below the screen");
     switch(type)
     {
       case L:

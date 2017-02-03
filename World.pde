@@ -10,6 +10,7 @@ class World
   int size = 0;
   final int BUFSIZE = 30;
   
+  final int ROADPADDING = 100;
   PVector startLoc = new PVector(width / 2, height - 20);
   int yOffset = 0;
   
@@ -30,6 +31,7 @@ class World
    println("  yOffset: " + yOffset);
    println("  height: " + height);
    println("  worldHeight: " + worldHeight);
+   println("  bufferSize: " + size);
    println();
    
    while((yOffset + height) >= worldHeight)
@@ -48,7 +50,7 @@ class World
    if(size == BUFSIZE)
    {
      println("Failed to add another RoadComponent");
-     return false;
+     exit();
    }
    
    worldHeight += c.getScreenHeight();
@@ -68,8 +70,8 @@ class World
  
  public void cleanRoadComponentsData()
  {
-   println("Cleaning Road Component Data");
-   while(getLastRoadComponent().belowScreen(yOffset) == true)
+   //println("Cleaning Road Component Data");
+   while(getLastRoadComponent() != null && getLastRoadComponent().belowScreen(yOffset) == true)
    {
      println("Removing RoadComponent from bottom on screen");
      removeRoadComponent();
@@ -81,7 +83,10 @@ class World
  private boolean removeRoadComponent()
  {
    if(size == 0)
-     return false;
+   {
+     println("Trying to remove an element from an empty circ buffer");
+     exit();
+   }
      
    worldHeight -= roadComponents[front].getScreenHeight();
    roadComponents[front++] = null; 
@@ -113,7 +118,7 @@ class World
    while(i != (back+1)%BUFSIZE)
    {
      roadComponents[i].render(yOffset);
-     println("Rendering component #" + ((i + 1) % BUFSIZE));
+     //println("Rendering component #" + ((i + 1) % BUFSIZE));
      i = (i + 1) % BUFSIZE;
    }
    
@@ -132,66 +137,80 @@ class World
  
  public void generateNewRoadComponent()
  {
-   println("Generating new road component");
-   switch(roadComponents[back].getDirection())
+   RoadComponent next;
+   KDir dir;
+   
+   if(roadComponents[back] == null)
+     dir = KDir.UP;
+   else
+     dir = roadComponents[back].getDirection();
+     
+   do
    {
-     case UP:
+     //println("Testing new road component");
+     switch(dir)
      {
-       println("UP called");
-       int type = (int)(random(0, 100) % 2);
-       if(type == 0)
-         addRoadComponent(new StraightRoad(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KDir.UP, random(25, 200), random(25, 150)));
-       else
-         addRoadComponent(new KArc(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KArcType.values()[(int)(random(0, 100) % 2)]));
-       break;
-     }
-     case LEFT:
-     {
-       println("Left Called");
-       int type = (int) (random(0, 100) % 2);
-       int roadLen = -1;
-       
-       while(roadLen == -1 || (roadComponents[back].roadConnectionStart.x - roadLen - SIDEPADDING) < 0)
+       case UP:
        {
-         roadLen = (int) random(25, 200);
-         if(roadComponents[back].roadConnectionStart.x + (roadComponents[back].getEndWidth()/2) + SIDEPADDING >= width)
-         {
-           type = 1;
-           break;
-         }
+         //println("UP called");
+         int type = (int)(random(0, 100) % 2);
+         if(type == 0)
+           next = new StraightRoad(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KDir.UP, random(25, 200), random(25, 150));
+         else
+           next = new KArc(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KArcType.values()[(int)(random(0, 100) % 2)]);
+         break;
        }
-       
-       if(type == 0)
-         addRoadComponent(new StraightRoad(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KDir.LEFT, random(25, 200), random(25, 150)));
-       else
-         addRoadComponent(new KArc(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KArcType.UFL));
-       break;
-     }
-     case RIGHT:
-     {
-       println("Right Called");
-       int type = (int) (random(0, 100) % 2);
-       int roadLen = -1;
-       
-       while(roadLen == -1 || (roadLen + roadComponents[back].roadConnectionStart.x + SIDEPADDING) > width)
+       case LEFT:
        {
-         roadLen = (int) random(25, 200);
-         if(roadComponents[back].roadConnectionStart.x + (roadComponents[back].getEndWidth()/2) + SIDEPADDING >= width)
+         //println("Left Called");
+         int type = (int) (random(0, 100) % 2);
+         int roadLen = -1;
+         
+         while(roadLen == -1 || (roadComponents[back].roadConnectionStart.x - roadLen - SIDEPADDING) < 0)
          {
-           type = 1;
-           break;
+           roadLen = (int) random(25, 200);
+           if(roadComponents[back].roadConnectionStart.x + (roadComponents[back].getEndWidth()/2) + SIDEPADDING >= width)
+           {
+             type = 1;
+             break;
+           }
          }
+         
+         if(type == 0)
+           next = new StraightRoad(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KDir.LEFT, random(25, 200), random(25, 150));
+         else
+           next = new KArc(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KArcType.UFL);
+         break;
        }
-       
-       if(type == 0)
-         addRoadComponent(new StraightRoad(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KDir.RIGHT, random(25, 200), random(25, 150)));
-       else
-         addRoadComponent(new KArc(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KArcType.UFR));
-       break;
+       case RIGHT:
+       {
+         //println("Right Called");
+         int type = (int) (random(0, 100) % 2);
+         int roadLen = -1;
+         
+         while(roadLen == -1 || (roadLen + roadComponents[back].roadConnectionStart.x + SIDEPADDING) > width)
+         {
+           roadLen = (int) random(25, 200);
+           if(roadComponents[back].roadConnectionStart.x + (roadComponents[back].getEndWidth()/2) + SIDEPADDING >= width)
+           {
+             type = 1;
+             break;
+           }
+         }
+         
+         if(type == 0)
+           next = new StraightRoad(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KDir.RIGHT, random(25, 200), random(25, 150));
+         else
+           next = new KArc(roadComponents[back].getRoadConnectionEnd(), roadComponents[back].getEndWidth(), KArcType.UFR);
+         break;
+       }
+       default:
+         println("Default case called in World.generateNewRoadComponent()");
+         return;
      }
-     default:
-       println("Default case called in World.generateNewRoadComponent()");
-       return;
-   }
+   }while(next.inHorizonRange(ROADPADDING) == false);
+   
+   println("Adding to render list");
+   addRoadComponent(next);
  }
 }

@@ -204,11 +204,13 @@ class StraightRoad extends RoadComponent
   
   public boolean belowScreen(int yOffset)
   {
+    println("Checking whether straightRoad component is below the screen");
+    println("RoadConnectionStart.y : " + roadConnectionStart.y);
     switch(direction)
     {
       case UP:
       {
-        if((roadConnectionStart.y - roadLength + yOffset) > height)
+        if((roadConnectionStart.y + yOffset) < height)
           return true;
           
         return false;
@@ -223,9 +225,13 @@ class StraightRoad extends RoadComponent
           
         return false;
       }
+      default:
+      {
+        println("Default case called to StraightRoad.belowScreen()");
+        exit();
+        return true; // Redundant but don't take out
+      }
     }
-    
-    return true;
   }
   
   public KDir getDirection()
