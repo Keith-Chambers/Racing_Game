@@ -206,6 +206,8 @@ class StraightRoad extends RoadComponent
   {
     println("Checking whether straightRoad component is below the screen");
     println("RoadConnectionStart.y : " + roadConnectionStart.y);
+    return true;
+    /*
     switch(direction)
     {
       case UP:
@@ -232,6 +234,7 @@ class StraightRoad extends RoadComponent
         return true; // Redundant but don't take out
       }
     }
+    */
   }
   
   public KDir getDirection()
