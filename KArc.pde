@@ -53,6 +53,31 @@ class KArc extends RoadComponent
     }
   }
   
+  public boolean inHorizonRange(int offset)
+  {
+    switch(type)
+    {
+      case R:
+      {
+        if((roadConnectionStart.x + radius) < (width + offset*2))
+          return true;
+        else
+          return false;
+      }
+      case L:
+      {
+        if((roadConnectionStart.x - radius) > (width + offset*2))
+          return true;
+        else 
+          return false;
+      }
+      default:
+      {
+        return true;
+      }
+    }
+  }
+  
   public float getScreenHeight()
   {
     if(type == KArcType.R || type == KArcType.L)

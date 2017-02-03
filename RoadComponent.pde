@@ -25,5 +25,6 @@ public abstract class RoadComponent
   public abstract float getTrackLenght();
   public abstract float getEndWidth();
   public abstract void render(int yOffset); 
+  public abstract boolean inHorizonRange(int offset);
   public abstract boolean belowScreen(int yOffset);
 }

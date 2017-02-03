@@ -47,6 +47,32 @@ class StraightRoad extends RoadComponent
       println("ERROR: No valid direction value found in StraightRoad Constructer");
   }
   
+  public boolean inHorizonRange(int offset)
+  {
+    
+    switch(direction)
+    {
+      case RIGHT:
+      {
+        if((roadConnectionStart.x + roadLength) <= (width - offset))
+          return true;
+        else 
+          return false;
+      }
+      case LEFT:
+      {
+        if((roadConnectionStart.x - roadLength) > (offset))
+          return true;
+        else
+          return false;
+      }
+      default:
+      {
+        return true;
+      }
+    }
+  }
+  
   public boolean contains(PVector p)
   {
     PVector TR, TL, BR, BL;

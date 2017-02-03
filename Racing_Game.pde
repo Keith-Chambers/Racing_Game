@@ -3,7 +3,7 @@ KArc test, test2;
 StraightRoad sr1, sr2;
 World world;
 
-int yOffset = 100;
+int yOffset = 0;
 
 void setup()
 {
@@ -15,10 +15,14 @@ void setup()
   
   world.addRoadComponent( (RoadComponent) sr1);
   
-  for(int i = 0; i < 4; i++)
+  for(int i = 0; i < 2; i++)
   {
     println("Frame #" + (i + 1));
-    
+    background(200);
+    world._setYOffset(yOffset);
+    yOffset += 2;
+    world.extendWorld();
+    world.render();
   }
 }
 
@@ -27,9 +31,6 @@ void draw()
 
   if(frameCount % 1 == 0)
   {
-    background(200);
-    world._setYOffset(yOffset += 2);
-    world.extendWorld();
-    world.render();
+    
   }
 }
