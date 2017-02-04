@@ -4,6 +4,8 @@ class World
   int worldHeight = 0;
   RoadComponent[] roadComponents;
   
+  int temp = 1;
+  
   // CircBuf
   int back = -1;
   int front = 0;
@@ -38,14 +40,16 @@ class World
    println();
    */
    
-   while((yOffset + height) >= worldHeight)
+   
+   
+   while(size == 0 || (getLastRoadComponent().getRoadConnectionEnd().y > -yOffset))
    {
-     //println("Adding RoadComponent");
+     println(temp + ") Adding RoadComponent");
+     temp++;
      generateNewRoadComponent();
    }
    
-   if(size != 0)
-     cleanRoadComponentsData();
+   cleanRoadComponentsData();
    
    //println("World doesn't need to be extended");
  }
@@ -65,13 +69,16 @@ class World
    
    size++;
    
-   println("Adding roadComponent, size = " + size + ": StartY = " + c.roadConnectionStart.y);
+   //println("Adding roadComponent, size = " + size + ": StartY = " + c.roadConnectionStart.y);
    
    return true;
  }
  
  private RoadComponent getLastRoadComponent()
  {
+   if(back < 0) 
+     exit();
+     
    return roadComponents[back];
  }
  
@@ -83,7 +90,7 @@ class World
  public void cleanRoadComponentsData()
  {
    //println("Cleaning Road Component Data");
-   while(size != 0 && getNextRoadComponent().belowScreen(yOffset) == true)
+   while(size != 0 && (getNextRoadComponent().belowScreen(yOffset) == true))
    {
      //println("Removing RoadComponent from bottom on screen");
      removeRoadComponent();
@@ -105,7 +112,7 @@ class World
    front %= BUFSIZE;
    size--;
    
-   println("Removing Component, Size = " + size);
+   //println("Removing Component, Size = " + size);
    
    return true;
  }
@@ -235,7 +242,7 @@ class World
      }
    }while(next.inHorizonRange(ROADPADDING) == false);
    
-   println("Adding to render list");
+   //println("Adding to render list");
    addRoadComponent(next);
  }
 }

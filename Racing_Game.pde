@@ -26,12 +26,12 @@ void setup()
 void draw()
 {
 
-  if(frameCount % 2 == 0)
+  if(frameCount % 1 == 0)
   {
 
     background(200);
     world._setYOffset(yOffset);
-    yOffset += 4;
+    yOffset += 20;
     world.extendWorld();
     world.render();
   }

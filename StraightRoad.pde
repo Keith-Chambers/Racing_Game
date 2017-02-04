@@ -213,7 +213,7 @@ class StraightRoad extends RoadComponent
       {
         if((getRoadConnectionEnd().y) > (height - yOffset))
         {
-          println("Straight below screen");
+          //println("Straight below screen");
           return true;
         } 
         return false;
@@ -225,7 +225,7 @@ class StraightRoad extends RoadComponent
         
         if((getRoadConnectionEnd().y + roadWidth/2) > (height - yOffset))
         {
-          println("Straight below screen");
+          //println("Straight below screen");
           return true;
         } 
         return false;
