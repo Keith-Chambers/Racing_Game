@@ -13,25 +13,26 @@ void setup()
   
   sr1 = new StraightRoad(new PVector(width/2, height), 120, KDir.UP, 120, 50);
   
-  world.addRoadComponent( (RoadComponent) sr1);
+  //world.addRoadComponent( (RoadComponent) sr1);
   
-  for(int i = 0; i < 2; i++)
+  /*
+  for(int i = 0; i < 10; i++)
   {
     println("Frame #" + (i + 1));
-    background(200);
-    world._setYOffset(yOffset);
-    yOffset += 5;
-    world.extendWorld();
-    world.render();
   }
- 
+   */
 }
 
 void draw()
 {
 
-  if(frameCount % 10 == 0)
+  if(frameCount % 2 == 0)
   {
-    
+
+    background(200);
+    world._setYOffset(yOffset);
+    yOffset += 4;
+    world.extendWorld();
+    world.render();
   }
 }

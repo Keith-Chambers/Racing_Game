@@ -23,26 +23,31 @@ class World
  {
    roadComponents = new RoadComponent[BUFSIZE];
    
+   for(int i = 0; i < BUFSIZE; i++)
+     roadComponents[i] = null;
  }
  
  public void extendWorld()
  {
+   /*
    println("extendWorld()");
    println("  yOffset: " + yOffset);
    println("  height: " + height);
    println("  worldHeight: " + worldHeight);
    println("  bufferSize: " + size);
    println();
+   */
    
    while((yOffset + height) >= worldHeight)
    {
-     println("Adding RoadComponent");
+     //println("Adding RoadComponent");
      generateNewRoadComponent();
    }
    
-   cleanRoadComponentsData();
+   if(size != 0)
+     cleanRoadComponentsData();
    
-   println("World doesn't need to be extended");
+   //println("World doesn't need to be extended");
  }
  
  public boolean addRoadComponent(RoadComponent c)
@@ -60,6 +65,8 @@ class World
    
    size++;
    
+   println("Adding roadComponent, size = " + size + ": StartY = " + c.roadConnectionStart.y);
+   
    return true;
  }
  
@@ -68,16 +75,21 @@ class World
    return roadComponents[back];
  }
  
+ private RoadComponent getNextRoadComponent()
+ {
+   return roadComponents[front];
+ }
+ 
  public void cleanRoadComponentsData()
  {
    //println("Cleaning Road Component Data");
-   while(size != 0 && getLastRoadComponent().belowScreen(yOffset) == true)
+   while(size != 0 && getNextRoadComponent().belowScreen(yOffset) == true)
    {
-     println("Removing RoadComponent from bottom on screen");
+     //println("Removing RoadComponent from bottom on screen");
      removeRoadComponent();
    }
    
-   println("Clean Complete");
+   //println("Clean Complete");
  }
  
  private boolean removeRoadComponent()
@@ -92,6 +104,8 @@ class World
    roadComponents[front++] = null; 
    front %= BUFSIZE;
    size--;
+   
+   println("Removing Component, Size = " + size);
    
    return true;
  }
@@ -122,7 +136,7 @@ class World
      i = (i + 1) % BUFSIZE;
    }
    
-   println("Render cycle complete");
+   //println("Render cycle complete");
  } // End render()
  
  public void _setYOffset(int _yOffset)
@@ -142,11 +156,12 @@ class World
    float startWidth;
    PVector startLoc;
    
-   if(roadComponents[back] == null)
+   if(back < 0 || roadComponents[back] == null)
    {
      dir = KDir.UP;
      startWidth = width / 10;
      startLoc = new PVector(width/2, height);
+     println("GENERATING START COMPONENT");
    }
    else
    {
