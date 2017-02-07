@@ -28,7 +28,6 @@ void draw()
 
   if(frameCount % 15 == 0)
   {
-
     background(200);
     world._setYOffset(yOffset);
     yOffset += 20;

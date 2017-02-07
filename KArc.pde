@@ -187,7 +187,7 @@ class KArc extends RoadComponent
       case L:
       case R:
       {
-        if((getRoadConnectionEnd().y + yOffset + radius/2) > height)
+        if((getRoadConnectionEnd().y + yOffset - radius/2) > height)
         {
           //println("Arc below screen");
           return true;

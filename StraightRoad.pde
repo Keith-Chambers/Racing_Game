@@ -223,7 +223,7 @@ class StraightRoad extends RoadComponent
       {
         float roadWidth = (endWidth > startWidth) ? endWidth : startWidth;
         
-        if((getRoadConnectionEnd().y + roadWidth/2) > (height - yOffset))
+        if((getRoadConnectionEnd().y - roadWidth/2) > (height - yOffset))
         {
           //println("Straight below screen");
           return true;

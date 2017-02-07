@@ -10,7 +10,7 @@ class World
   int back = -1;
   int front = 0;
   int size = 0;
-  final int BUFSIZE = 30;
+  final int BUFSIZE = 40;
   
   final int ROADPADDING = 100;
   PVector startLoc = new PVector(width / 2, height - 20);
@@ -44,7 +44,7 @@ class World
    
    while(size == 0 || (getLastRoadComponent().getRoadConnectionEnd().y > -yOffset))
    {
-     println(temp + ") Adding RoadComponent");
+     //println(temp + ") Adding RoadComponent");
      temp++;
      generateNewRoadComponent();
    }
@@ -69,7 +69,7 @@ class World
    
    size++;
    
-   //println("Adding roadComponent, size = " + size + ": StartY = " + c.roadConnectionStart.y);
+   println("ADDING COMPONENT SIZE : " + size);
    
    return true;
  }
@@ -111,6 +111,8 @@ class World
    roadComponents[front++] = null; 
    front %= BUFSIZE;
    size--;
+   
+   println("REMOVING COMPONENT SIZE : " + size);
    
    //println("Removing Component, Size = " + size);
    
