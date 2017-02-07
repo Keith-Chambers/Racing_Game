@@ -1,14 +1,14 @@
 class Car
 {
   
-  int speed;
-  float direction;
-  PVector loc;
-  PShape car;
-  color mainColour;
+  private int speed;
+  private float direction;
+  private PVector loc;
+  private PShape car;
+  private color mainColour;
   
   final int carWidth = 15;
-  final int carHeight = 25;
+  final int carHeight = 15;
   
   color c;
   
@@ -18,9 +18,37 @@ class Car
     mainColour = color(200, 200, 100);
     loc = _loc;
     direction = _direction;
-    car = createShape();
-    //loc = new PVector(0, 0);
 
+  }
+  
+  public void moveForward()
+  {
+    loc.y += 20;
+  }
+  
+  public float moveTowards(PVector target, int speed)
+  {
+    float dx, dy, ix, iy, dist, ratio;
+    dx = target.x - loc.x;
+    dy = target.y - loc.y;
+    dist = dist(target.x, target.y, loc.x, loc.y);
+    ratio = speed / dist; // Less than 1
+    ix = dx * ratio;
+    iy = dy * ratio;
+    
+    loc.x += ix;
+    
+    return iy * -1;
+  }
+  
+  public PVector getLocation()
+  {
+    return loc;
+  }
+  
+  public void render()
+  {
+    car = createShape();
     car.beginShape();
     car.fill(mainColour);
     car.stroke(1);
@@ -37,11 +65,7 @@ class Car
     //shape.rotate(direction);
     
     car.endShape(CLOSE);
-
-  }
-  
-  public void render()
-  {
+    
     println("Rendering car");
     shape(car, 0, 0);
   }

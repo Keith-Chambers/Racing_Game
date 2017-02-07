@@ -13,7 +13,7 @@ class World
   final int BUFSIZE = 40;
   
   final int ROADPADDING = 100;
-  PVector startLoc = new PVector(width / 2, height - 20);
+  PVector startLoc = new PVector(width / 2, height);
   int yOffset = 0;
   
   // Map generation data
@@ -150,12 +150,20 @@ class World
  
  public void _setYOffset(int _yOffset)
  {
+   if(_yOffset < yOffset)
+     return;
    yOffset = _yOffset;
  }
  
  public boolean _lastComponentBelowScreen()
  {
    return roadComponents[front].belowScreen(yOffset);
+ }
+ 
+ public void incYOffset(int _yIncrement)
+ {
+     
+   yOffset += _yIncrement;
  }
  
  public void generateNewRoadComponent()
