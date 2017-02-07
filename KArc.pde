@@ -62,17 +62,25 @@ class KArc extends RoadComponent
     {
       case R:
       {
-        if((roadConnectionStart.x + radius) < (width - offset*3))
+        if((roadConnectionStart.x + radius) < (width - offset*2))
+        {
           return true;
+        }
         else
+        {
+          println("Rejecting Right bound Corner");
           return false;
+        }
       }
       case L:
       {
-        if((roadConnectionStart.x - radius) > (width - offset*3))
+        if((roadConnectionStart.x - radius) > (offset*2))
           return true;
         else 
+        {
+          println("Rejecting Left bound Corner");
           return false;
+        }
       }
       default:
       {

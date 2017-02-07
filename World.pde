@@ -240,6 +240,7 @@ class World
          println("Default case called in World.generateNewRoadComponent()");
          return;
      }
+     
    }while(next.inHorizonRange(ROADPADDING) == false);
    
    //println("Adding to render list");

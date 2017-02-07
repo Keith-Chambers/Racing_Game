@@ -26,7 +26,7 @@ void setup()
 void draw()
 {
 
-  if(frameCount % 1 == 0)
+  if(frameCount % 15 == 0)
   {
 
     background(200);
