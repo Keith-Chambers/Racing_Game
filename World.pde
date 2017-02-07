@@ -27,6 +27,8 @@ class World
    
    for(int i = 0; i < BUFSIZE; i++)
      roadComponents[i] = null;
+     
+   addRoadComponent(new StraightRoad(startLoc, 80, KDir.UP, 200, 80));
  }
  
  public void extendWorld()
@@ -44,8 +46,6 @@ class World
    
    while(size == 0 || (getLastRoadComponent().getRoadConnectionEnd().y > -yOffset))
    {
-     //println(temp + ") Adding RoadComponent");
-     temp++;
      generateNewRoadComponent();
    }
    
@@ -164,7 +164,7 @@ class World
    KDir dir;
    float startWidth;
    PVector startLoc;
-   
+   /*
    if(back < 0 || roadComponents[back] == null)
    {
      dir = KDir.UP;
@@ -178,6 +178,11 @@ class World
      startWidth = roadComponents[back].getEndWidth();
      startLoc = roadComponents[back].getRoadConnectionEnd();
    }
+   */
+   
+   dir = roadComponents[back].getDirection();
+   startWidth = roadComponents[back].getEndWidth();
+   startLoc = roadComponents[back].getRoadConnectionEnd();
    
    do
    {

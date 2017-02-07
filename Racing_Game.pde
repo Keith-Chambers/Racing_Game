@@ -2,6 +2,8 @@ PVector arc_origin = new PVector(50, 50);
 KArc test, test2;
 StraightRoad sr1, sr2;
 World world;
+Car car;
+PVector startLoc;
 
 int yOffset = 0;
 
@@ -10,27 +12,27 @@ void setup()
   size(1000, 700);
 
   world = new World();
+  startLoc = new PVector();
   
-  sr1 = new StraightRoad(new PVector(width/2, height), 120, KDir.UP, 120, 50);
-  
-  //world.addRoadComponent( (RoadComponent) sr1);
-  
-  /*
-  for(int i = 0; i < 10; i++)
-  {
-    println("Frame #" + (i + 1));
-  }
-   */
+  startLoc = world.getNextRoadComponent().roadConnectionStart;
+  startLoc.y -= 20;
+  car = new Car(startLoc, radians(90));
+
+  world._setYOffset(yOffset);
+  yOffset += 10;
+  world.extendWorld();
+  world.render();
+  car.render();
 }
 
 void draw()
 {
 
-  if(frameCount % 15 == 0)
+  if(false)
   {
     background(200);
     world._setYOffset(yOffset);
-    yOffset += 20;
+    yOffset += 10;
     world.extendWorld();
     world.render();
   }

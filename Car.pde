@@ -4,34 +4,46 @@ class Car
   int speed;
   float direction;
   PVector loc;
-  PShape shape;
+  PShape car;
+  color mainColour;
   
-  final int carWidth = 60;
-  final int carHeight = 100;
+  final int carWidth = 15;
+  final int carHeight = 25;
   
   color c;
   
   public Car(PVector _loc, float _direction) 
   {
     speed = 0;
+    mainColour = color(200, 200, 100);
     loc = _loc;
     direction = _direction;
-    shape = createShape();
+    car = createShape();
+    //loc = new PVector(0, 0);
+
+    car.beginShape();
+    car.fill(mainColour);
+    car.stroke(1);
+    // Top Left
+    car.vertex(loc.x - carWidth/2, loc.y - carHeight/2);
+    // Top Right
+    car.vertex(loc.x + carWidth/2, loc.y - carHeight/2);
+    // Bottom Right
+    car.vertex(loc.x + carWidth/2, loc.y + carHeight/2);
+    // Bottom Left
+    car.vertex(loc.x - carWidth/2, loc.y + carHeight/2);
+    // END
+    //shape.vertex(loc.x - carWidth/2, loc.y - carHeight/2);
+    //shape.rotate(direction);
     
-    //loc = new PVector(width/2, height/2);
-    shape.beginShape(RECT);
-    shape.vertex(loc.x - carWidth/2, loc.y - carHeight/2);
-    shape.vertex(loc.x + carWidth/2, loc.y - carHeight/2);
-    shape.vertex(loc.x + carWidth/2, loc.y + carHeight/2);
-    shape.vertex(loc.x - carWidth/2, loc.y + carHeight/2);
-    shape.rotate(direction);
-    shape.fill(0, 0, 100);
-    shape.endShape();
+    car.endShape(CLOSE);
+
   }
   
   public void render()
   {
-    shape(shape, 0, 0);
+    println("Rendering car");
+    shape(car, 0, 0);
   }
   
   
