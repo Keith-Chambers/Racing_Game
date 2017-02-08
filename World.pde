@@ -19,6 +19,7 @@ class World
   int roadLenMax = 200;
   int roadLenMin = 20;
   final int SIDEPADDING = 50;
+  float trackLength;
   
  public World()
  {
@@ -60,13 +61,17 @@ class World
    }
    
    worldHeight += c.getScreenHeight();
-     
+   trackLength += c.getTrackLenght();
    back = (back + 1) % BUFSIZE;
    roadComponents[back] = c;
    
    size++;
    
    return true;
+ }
+ public float getTrackLength()
+ {
+   return trackLength;
  }
  
  private RoadComponent getLastRoadComponent()
@@ -182,6 +187,7 @@ class World
    {
      if(roadComponents[(front + i)%BUFSIZE].contains(p))
      {
+       currentSegment = i;
        return true;
      }
    }

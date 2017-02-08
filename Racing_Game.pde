@@ -66,5 +66,6 @@ void draw()
     fill(0);
     textAlign(CENTER);
     text("Game Over!", width/2, height/2);
+    text("You generated ~" + (int)world.getTrackLength() + " pixels worth of track", width/2, height/2 + 100);
   }
 }
