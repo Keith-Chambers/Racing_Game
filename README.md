@@ -28,3 +28,7 @@ Playing tracker is very easy since the game itself is quite simple! At the start
 **Increase Speed**: w key </br>
 **Decrease Speed**: s key <br/>
 **Quit**: q key
+
+<h4>Video Demo</h4>
+
+[https://www.youtube.com/watch?v=EBYKAF6xaKg](https://www.youtube.com/watch?v=EBYKAF6xaKg "OOP Video Demo")
