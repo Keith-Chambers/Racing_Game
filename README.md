@@ -22,9 +22,9 @@ All of these road segment types inherit from an abstract class called RoadCompon
 
 Playing tracker is very easy since the game itself is quite simple! At the start screen simply press *p* to start the game. Once the game is started you will see the track has been generated for you. The ball will move itself without any prompting, all you have to do is move to mouse in the direction that you will the ball to go. The ball will move towards the mouse at whatever speed it is set to. Although you don't have to manage speed in the game, if you wish to go slower or faster you can use the *w* and *s* keys to speed up and slow down the speed of the ball respectably. The is a limit to how slow and fast the ball can move at. If you wish to quit the game at any point just press *q*. That's all there is to it, after you move off the track the end game screen will display telling you how much track you managed to generate on your journey!
 
-<h5>Summery of Controls</h5>
-Start Game: p key
-Steer : Using mouse
-Increase Speed: w key
-Decrease Speed: s key
-Quit: q key
+<h4>Summery of Controls</h4>
+**Start Game**: p key <br/>
+**Steer** : Using mouse <br/>
+**Increase Speed**: w key </br>
+**Decrease Speed**: s key <br/>
+**Quit**: q key
