@@ -85,7 +85,36 @@ class StraightRoad extends RoadComponent
         TL = TL_UP;
         BR = BR_UP;
         BL = BL_UP;
-        break;
+        
+        LineEqn top = new LineEqn(TR, TL);
+        LineEqn bottom = new LineEqn(BR, BL);
+        LineEqn right = new LineEqn(TR, BR);
+        LineEqn left = new LineEqn(TL, BL);
+        
+        if(!top.above(p) || bottom.above(p))
+          return false;
+          
+        println("First Condition passed");
+        
+        if(endWidth > startWidth)
+        {
+          if(!left.above(p) || !right.above(p))
+            return false;
+          else 
+            return true;
+        }else if(startWidth > endWidth)
+        {
+          if(left.above(p) || right.above(p))
+            return false;
+          else
+            return true;
+        }else
+        {
+          if(!left.above(p) || right.above(p))
+            return false;
+          else
+            return true;
+        }
       }
       case RIGHT:
       {

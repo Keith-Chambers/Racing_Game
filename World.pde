@@ -10,6 +10,7 @@ class World
   int back = -1;
   int front = 0;
   int size = 0;
+  int currentSegment = 0;
   final int BUFSIZE = 40;
   
   final int ROADPADDING = 100;
@@ -69,7 +70,7 @@ class World
    
    size++;
    
-   println("ADDING COMPONENT SIZE : " + size);
+   //println("ADDING COMPONENT SIZE : " + size);
    
    return true;
  }
@@ -112,7 +113,7 @@ class World
    front %= BUFSIZE;
    size--;
    
-   println("REMOVING COMPONENT SIZE : " + size);
+   //println("REMOVING COMPONENT SIZE : " + size);
    
    //println("Removing Component, Size = " + size);
    
@@ -164,6 +165,40 @@ class World
  {
      
    yOffset += _yIncrement;
+ }
+ 
+ public boolean inWorld(PVector _loc)
+ {
+   if(roadComponents[(front + currentSegment)%BUFSIZE].contains(_loc))
+   {
+     return true;
+   }else
+   {
+     if(roadComponents[(front + currentSegment + 1)%BUFSIZE].contains(_loc))
+     {
+       currentSegment++;
+       return true;
+     }
+     else 
+       return false;
+   }
+   
+ }
+ 
+ public boolean findTheComponent(PVector p)
+ {
+   //println("Finding the component");
+   
+   for(int i = 0; i < size; i++)
+   {
+     if(roadComponents[(front + i)%BUFSIZE].contains(p))
+     {
+       println("Mouse Contained in RoadComponent #" + (i + 1));
+       return true;
+     }
+   }
+   
+   return false;
  }
  
  public void generateNewRoadComponent()

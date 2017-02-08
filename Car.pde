@@ -6,6 +6,7 @@ class Car
   private PVector loc;
   private PShape car;
   private color mainColour;
+  private float radius = 10;
   
   final int carWidth = 15;
   final int carHeight = 15;
@@ -18,6 +19,7 @@ class Car
     mainColour = color(200, 200, 100);
     loc = _loc;
     direction = _direction;
+    
 
   }
   
@@ -48,6 +50,12 @@ class Car
   
   public void render()
   {
+    fill(mainColour);
+    if(radius == 0)
+      radius = 1;
+    ellipse(loc.x, loc.y, radius*2, radius*2);
+    
+    /*
     car = createShape();
     car.beginShape();
     car.fill(mainColour);
@@ -68,6 +76,7 @@ class Car
     
     println("Rendering car");
     shape(car, 0, 0);
+    */
   }
   
   
