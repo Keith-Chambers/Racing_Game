@@ -26,25 +26,30 @@ void keyPressed()
     if(key == 'q')
       exit();
     if(key == 'p')
+    {
+      println("P Pressed");
       startGame = true;
+    }
 }
 
 void mousePressed()
 {
-  world.findTheComponent(new PVector(mouseX, mouseY));
+  if(world.findTheComponent(new PVector(mouseX, mouseY)) == false)
+    endGame = true;
 }
 
 void draw()
 {
   
-  if(startGame == false)
+  if(!startGame)
   {
     background(220, 220, 220);
     textSize(40);
     fill(0);
+    textAlign(CENTER);
     text("Press p to begin", width/2, height/2);
    
-  }else
+  }else if(startGame == true && endGame == false)
   {
     if(frameCount % 30 == 0)
     {
@@ -60,5 +65,12 @@ void draw()
         println("Not in world");
       */
     }
+  }else
+  {
+    background(220, 220, 220);
+    textSize(40);
+    fill(0);
+    textAlign(CENTER);
+    text("Game Over!", width/2, height/2);
   }
 }
