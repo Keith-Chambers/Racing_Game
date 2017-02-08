@@ -1,3 +1,7 @@
+/*
+  Alot of the code here is very poorly written and needs a refector if time allows
+*/
+
 class StraightRoad extends RoadComponent
 {
   float roadLength;
@@ -94,7 +98,6 @@ class StraightRoad extends RoadComponent
         if(!top.above(p) || bottom.above(p))
           return false;
           
-        println("First Condition passed");
         
         if(endWidth > startWidth)
         {
@@ -185,11 +188,6 @@ class StraightRoad extends RoadComponent
   }
   public void render(int yOffset)
   {
-    if(yOffset < 0)
-    {
-      println("Negative yOffset in StraightRoad.render(int)");
-      return;
-    }
     
     s = createShape();
     s.beginShape();
@@ -233,8 +231,6 @@ class StraightRoad extends RoadComponent
   
   public boolean belowScreen(int yOffset)
   {
-    //println("Checking whether straightRoad component is below the screen");
-    //println("RoadConnectionStart.y : " + roadConnectionStart.y);
     
     switch(direction)
     {
@@ -242,7 +238,6 @@ class StraightRoad extends RoadComponent
       {
         if((getRoadConnectionEnd().y) > (height - yOffset))
         {
-          //println("Straight below screen");
           return true;
         } 
         return false;
@@ -254,7 +249,6 @@ class StraightRoad extends RoadComponent
         
         if((getRoadConnectionEnd().y - roadWidth/2) > (height - yOffset))
         {
-          //println("Straight below screen");
           return true;
         } 
         return false;

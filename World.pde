@@ -4,8 +4,6 @@ class World
   int worldHeight = 0;
   RoadComponent[] roadComponents;
   
-  int temp = 1;
-  
   // CircBuf
   int back = -1;
   int front = 0;
@@ -34,7 +32,7 @@ class World
  
  public void extendWorld()
  {
-   /*
+   /* For debugging
    println("extendWorld()");
    println("  yOffset: " + yOffset);
    println("  height: " + height);
@@ -44,7 +42,6 @@ class World
    */
    
    
-   
    while(size == 0 || (getLastRoadComponent().getRoadConnectionEnd().y > -yOffset))
    {
      generateNewRoadComponent();
@@ -52,7 +49,6 @@ class World
    
    cleanRoadComponentsData();
    
-   //println("World doesn't need to be extended");
  }
  
  public boolean addRoadComponent(RoadComponent c)
@@ -69,8 +65,6 @@ class World
    roadComponents[back] = c;
    
    size++;
-   
-   //println("ADDING COMPONENT SIZE : " + size);
    
    return true;
  }
@@ -90,14 +84,11 @@ class World
  
  public void cleanRoadComponentsData()
  {
-   //println("Cleaning Road Component Data");
    while(size != 0 && (getNextRoadComponent().belowScreen(yOffset) == true))
    {
-     //println("Removing RoadComponent from bottom on screen");
      removeRoadComponent();
    }
    
-   //println("Clean Complete");
  }
  
  private boolean removeRoadComponent()
@@ -112,10 +103,6 @@ class World
    roadComponents[front++] = null; 
    front %= BUFSIZE;
    size--;
-   
-   //println("REMOVING COMPONENT SIZE : " + size);
-   
-   //println("Removing Component, Size = " + size);
    
    return true;
  }
@@ -142,11 +129,9 @@ class World
    while(i != (back+1)%BUFSIZE)
    {
      roadComponents[i].render(yOffset);
-     //println("Rendering component #" + ((i + 1) % BUFSIZE));
      i = (i + 1) % BUFSIZE;
    }
    
-   //println("Render cycle complete");
  } // End render()
  
  public void _setYOffset(int _yOffset)
@@ -165,6 +150,11 @@ class World
  {
      
    yOffset += _yIncrement;
+ }
+ 
+ public float getYOffset()
+ {
+   return yOffset;
  }
  
  public boolean inWorld(PVector _loc)
@@ -187,13 +177,11 @@ class World
  
  public boolean findTheComponent(PVector p)
  {
-   //println("Finding the component");
    
    for(int i = 0; i < size; i++)
    {
      if(roadComponents[(front + i)%BUFSIZE].contains(p))
      {
-       println("Mouse Contained in RoadComponent #" + (i + 1));
        return true;
      }
    }
@@ -207,21 +195,6 @@ class World
    KDir dir;
    float startWidth;
    PVector startLoc;
-   /*
-   if(back < 0 || roadComponents[back] == null)
-   {
-     dir = KDir.UP;
-     startWidth = width / 10;
-     startLoc = new PVector(width/2, height);
-     println("GENERATING START COMPONENT");
-   }
-   else
-   {
-     dir = roadComponents[back].getDirection();
-     startWidth = roadComponents[back].getEndWidth();
-     startLoc = roadComponents[back].getRoadConnectionEnd();
-   }
-   */
    
    dir = roadComponents[back].getDirection();
    startWidth = roadComponents[back].getEndWidth();
@@ -229,12 +202,10 @@ class World
    
    do
    {
-     //println("Testing new road component");
      switch(dir)
      {
        case UP:
        {
-         //println("UP called");
          int type = (int)(random(0, 100) % 2);
          if(type == 0)
            next = new StraightRoad(startLoc, startWidth, KDir.UP, random(25, 200), random(25, 150));
@@ -244,7 +215,6 @@ class World
        }
        case LEFT:
        {
-         //println("Left Called");
          int type = (int) (random(0, 100) % 2);
          int roadLen = -1;
          
@@ -266,7 +236,6 @@ class World
        }
        case RIGHT:
        {
-         //println("Right Called");
          int type = (int) (random(0, 100) % 2);
          int roadLen = -1;
          
@@ -293,7 +262,6 @@ class World
      
    }while(next.inHorizonRange(ROADPADDING) == false);
    
-   //println("Adding to render list");
    addRoadComponent(next);
  }
 }

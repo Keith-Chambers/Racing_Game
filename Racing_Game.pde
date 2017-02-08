@@ -5,6 +5,7 @@ PVector startLoc;
 float carYOffset;
 boolean startGame = false;
 boolean endGame = false;
+int carSpeed = 5;
 
 int yOffset = 0;
 
@@ -15,7 +16,7 @@ void setup()
   world = new World();
   carYOffset = world.getNextRoadComponent().getTrackLenght();
   startLoc = new PVector(world.getNextRoadComponent().roadConnectionStart.x, world.getNextRoadComponent().roadConnectionStart.y - carYOffset);
-  car = new Car(startLoc, radians(90));
+  car = new Car(startLoc);
   world._setYOffset(0);
   
 }
@@ -27,15 +28,12 @@ void keyPressed()
       exit();
     if(key == 'p')
     {
-      println("P Pressed");
       startGame = true;
     }
 }
 
 void mousePressed()
 {
-  if(world.findTheComponent(new PVector(mouseX, mouseY)) == false)
-    endGame = true;
 }
 
 void draw()
@@ -51,19 +49,15 @@ void draw()
    
   }else if(startGame == true && endGame == false)
   {
-    if(frameCount % 30 == 0)
+    if(frameCount % 2 == 0)
     {
       background(220, 220, 220);
       world.extendWorld();
       world.render();
-      //car.render();
-      //world.incYOffset((int)car.moveTowards(new PVector(mouseX, mouseY), 5));
-      
-      
-      /*
-      if(!world.inWorld(car.getLocation()))
-        println("Not in world");
-      */
+      car.render();
+      world.incYOffset((int)car.moveTowards(new PVector(mouseX, mouseY), carSpeed));
+      if(world.findTheComponent(new PVector(car.getLocation().x, car.getLocation().y - world.getYOffset())) == false)
+        endGame = true;
     }
   }else
   {

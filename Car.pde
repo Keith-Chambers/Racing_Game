@@ -1,10 +1,6 @@
 class Car
 {
-  
-  private int speed;
-  private float direction;
   private PVector loc;
-  private PShape car;
   private color mainColour;
   private float radius = 10;
   
@@ -13,14 +9,10 @@ class Car
   
   color c;
   
-  public Car(PVector _loc, float _direction) 
+  public Car(PVector _loc) 
   {
-    speed = 0;
     mainColour = color(200, 200, 100);
     loc = _loc;
-    direction = _direction;
-    
-
   }
   
   public void moveForward()

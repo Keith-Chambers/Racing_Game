@@ -55,9 +55,6 @@ class KArc extends RoadComponent
   
   public boolean inHorizonRange(int offset)
   {
-    
-    //println("Testing ARC (Start X: " + roadConnectionStart.x + ", radius: " + radius + ", Offset*3: " + offset*3 + ", width: " + width + ")");
-    //println("Direction: " + type);
     switch(type)
     {
       case R:
@@ -68,7 +65,6 @@ class KArc extends RoadComponent
         }
         else
         {
-          println("Rejecting Right bound Corner");
           return false;
         }
       }
@@ -78,7 +74,6 @@ class KArc extends RoadComponent
           return true;
         else 
         {
-          println("Rejecting Left bound Corner");
           return false;
         }
       }
@@ -181,7 +176,6 @@ class KArc extends RoadComponent
   
   public boolean belowScreen(int yOffset)
   {
-    //println("Checking whether Arc is below the screen");
     switch(type)
     {
       case L:
@@ -189,7 +183,6 @@ class KArc extends RoadComponent
       {
         if((getRoadConnectionEnd().y + yOffset - radius/2) > height)
         {
-          //println("Arc below screen");
           return true;
         }
         return false;
@@ -199,7 +192,6 @@ class KArc extends RoadComponent
       {
         if((getRoadConnectionEnd().y + yOffset) > height)
         {
-          //println("Arc below screen");
           return true;
         } 
         return false;
