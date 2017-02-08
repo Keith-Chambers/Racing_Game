@@ -6,6 +6,8 @@ float carYOffset;
 boolean startGame = false;
 boolean endGame = false;
 int carSpeed = 5;
+final int MAXCARSPEED = 10;
+final int MINCARSPEED = 2;
 
 int yOffset = 0;
 
@@ -30,6 +32,10 @@ void keyPressed()
     {
       startGame = true;
     }
+    if(key == 'w' && carSpeed != MAXCARSPEED)
+      carSpeed++;
+    if(key == 's' && carSpeed != MINCARSPEED)
+      carSpeed--;
 }
 
 void mousePressed()
